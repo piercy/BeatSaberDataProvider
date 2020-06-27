@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace WebUtilities.WebWrapper
     {
         /// <inheritdoc/>
         public string? UserAgent { get; private set; }
+        public List<Tuple<string,string>>? Headers { get; private set; }
 
         /// <summary>
         /// Creates a new <see cref="WebClientWrapper"/> with the default settings.
@@ -40,6 +42,14 @@ namespace WebUtilities.WebWrapper
         public void SetUserAgent(string? userAgent)
         {
             UserAgent = userAgent;
+        }
+
+        public void AddHeader(string name, string value)
+        {
+            if (Headers == null) 
+                Headers = new List<Tuple<string, string>>();
+
+            Headers.Add(new Tuple<string, string>(name, value));
         }
 
         private int _timeout = 30000;
@@ -85,6 +95,15 @@ namespace WebUtilities.WebWrapper
             HttpWebRequest request = WebRequest.CreateHttp(uri);
             if (!string.IsNullOrEmpty(UserAgent))
                 request.UserAgent = UserAgent;
+
+            if (Headers != null && Headers.Count > 0)
+            {
+                foreach (var header in Headers)
+                {
+                    request.Headers.Add(header.Item1, header.Item2);
+                }
+            }
+
             CancellationTokenSource? timeoutSource = null;
             CancellationToken timeoutToken = CancellationToken.None;
             if (timeout != 0)

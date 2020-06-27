@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -15,6 +16,7 @@ namespace WebUtilities.HttpClientWrapper
         private HttpClient? httpClient;
         /// <inheritdoc/>
         public string? UserAgent { get; private set; }
+
         /// <summary>
         /// Creates a new <see cref="HttpClientWrapper"/> with a default <see cref="HttpClient"/>.
         /// </summary>
@@ -62,6 +64,11 @@ namespace WebUtilities.HttpClientWrapper
             {
                 UserAgent = userAgent;
             }
+        }
+        /// <inheritdoc/>
+        public void AddHeader(string name, string value)
+        {
+            httpClient?.DefaultRequestHeaders.Add(name, value);
         }
 
         private TimeSpan _timeout;

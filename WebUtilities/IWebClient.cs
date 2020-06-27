@@ -29,6 +29,12 @@ namespace WebUtilities
         /// </summary>
         /// <param name="userAgent"></param>
         void SetUserAgent(string? userAgent);
+        /// <summary>
+        /// Sets the Headers the client sends in the request headers.
+        /// </summary>
+        /// <param name="name">The name/key of the header</param>
+        /// <param name="value">The value of the header</param>
+        void AddHeader(string name, string value);
 
         /// <summary>
         /// Send a GET request to the specified Uri as an asynchronous operation. If the server doesn't respond inside the provided timeout (milliseconds) or the provided CancellationToken is triggered, the operation is canceled.

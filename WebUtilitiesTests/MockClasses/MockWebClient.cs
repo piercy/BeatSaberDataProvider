@@ -19,6 +19,11 @@ namespace SongFeedReadersTests.MockClasses
             UserAgent = userAgent;
         }
 
+        public void AddHeader(string name, string value)
+        {
+            // does not need to do anything for mocking
+        }
+
         public Task<IWebResponseMessage> GetAsync(Uri uri, int timeout, CancellationToken cancellationToken)
         {
             //var content = new MockHttpContent(url);

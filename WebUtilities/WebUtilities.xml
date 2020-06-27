@@ -441,6 +441,9 @@
         <member name="M:WebUtilities.HttpClientWrapper.HttpClientWrapper.SetUserAgent(System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:WebUtilities.HttpClientWrapper.HttpClientWrapper.AddHeader(System.String,System.String)">
+            <inheritdoc/>
+        </member>
         <member name="P:WebUtilities.HttpClientWrapper.HttpClientWrapper.Timeout">
             <summary>
             Timeout for the HttpClient in milliseconds. Default is 100,000 milliseconds.
@@ -594,6 +597,13 @@
             Should be in the format: Product/Version.
             </summary>
             <param name="userAgent"></param>
+        </member>
+        <member name="M:WebUtilities.IWebClient.AddHeader(System.String,System.String)">
+            <summary>
+            Sets the Headers the client sends in the request headers.
+            </summary>
+            <param name="name">The name/key of the header</param>
+            <param name="value">The value of the header</param>
         </member>
         <member name="M:WebUtilities.IWebClient.GetAsync(System.Uri,System.Int32,System.Threading.CancellationToken)">
             <summary>
