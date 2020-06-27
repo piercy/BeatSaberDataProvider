@@ -38,6 +38,19 @@ namespace SongFeedReaders.Readers.BeatFollower
         public bool StoreRawData { get; set; }
         public IFeedSettings Settings { get; }
         public bool HasValidSettings { get; }
+
+        public string ApiKey { get; set; }
+
+        public BeatFollowerFeedSettings BfSettings { get; }
+        public BeatFollowerFeed(BeatFollowerFeedSettings settings)
+        {
+            if (settings == null) throw new ArgumentNullException(nameof(settings), "settings cannot be null when creating a new BeatFollower.");
+            BfSettings = (BeatFollowerFeedSettings)settings.Clone();
+            ApiKey = BeatFollowerFeedSettings.ApiKey;
+        }
+
+        
+
         public void EnsureValidSettings()
         {
             throw new NotImplementedException();
@@ -63,6 +76,7 @@ namespace SongFeedReaders.Readers.BeatFollower
 
             try
             {
+                WebUtils.WebClient.AddHeader("ApiKey", ApiKey);
                 response = await WebUtils.WebClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
                 pageText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
